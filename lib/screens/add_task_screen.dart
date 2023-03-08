@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  late String taskName;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,13 +26,17 @@ class AddTaskScreen extends StatelessWidget {
             TextField(
               autofocus: true,
               textAlign: TextAlign.center,
+              onChanged: (newText) {
+                taskName = newText;
+              },
             ),
             SizedBox(
               height: 20.0,
             ),
             TextButton(
               onPressed: () {
-                //Add tasks.
+                Provider.of<TaskData>(context, listen: false).addTask(taskName);
+                Navigator.pop(context);
               },
               child: Text(
                 'Add',
